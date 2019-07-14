@@ -38,7 +38,8 @@ chrome.runtime.onMessage.addListener((request) => {
                     // console.log("heading:", heading.textContent);
                     // console.log("heading2:", heading.firstChild.nodeValue);
                     // console.log("heading3:", heading.innerHTML); 
-                    if (heading.textContent.replace(/-/g, " ") == hashPart) {
+                    const newHeading = heading.textContent.replace(/-/g, " ");
+                    if (newHeading.indexOf(hashPart) > -1) {
                         // console.log("bingo")
                         element.click();
                         break;
