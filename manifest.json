@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Paper Auto TOC",
-  "description": "Paper Auto TOC",
+  "name": "Paper Auto Show TOC",
+  "description": "Paper Auto Show TOC",
   "version": "1.0",
 
   "icons": {
@@ -11,14 +11,12 @@
   },
 
   "browser_action": {
-    "default_title": "paper-auto-toc",
+    "default_title": "paper-auto-show-toc",
     "default_popup": "popup.html"
   },
 
   "permissions": [
-    "activeTab",
-    "storage",
-    "tabs"
+    "storage"
   ],
   "background": {
     "scripts": ["background.js"]
