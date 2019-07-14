@@ -1,5 +1,12 @@
 // console.log("current page url:", window.location.href);
 
+let functionOn = true;
+chrome.storage.sync.get(['visibility'], (result) => {
+    if (result.visibility === 'off') {
+        functionOn = false;
+    }
+});
+
 var decodedURL = decodeURI(window.location.href);
 // console.log("decodedURL:", decodedURL);
 
@@ -13,6 +20,10 @@ if (paths.length >= 2) {
 let loadTime = 0;
 
 chrome.runtime.onMessage.addListener((request) => {
+    // console.log("chrome.runtime");
+    if (!functionOn) {
+        return;
+    }
     if (request.message === 'tab_update_completed') {
         // const elements = document.getElementsByClassName('hp-toc-entry');
         const elements = document.querySelectorAll(".hp-toc-entry")
