@@ -1,5 +1,7 @@
 // console.log("current page url:", window.location.href);
 
+const firstURL = window.location.href;
+
 let functionOn = true;
 chrome.storage.sync.get(['visibility'], (result) => {
     if (result.visibility === 'off') {
@@ -7,19 +9,16 @@ chrome.storage.sync.get(['visibility'], (result) => {
     }
 });
 
-var decodedURL = decodeURI(window.location.href);
+const decodedURL = decodeURI(window.location.href);
 // console.log("decodedURL:", decodedURL);
 
 let hashPart = null;
 
 const index = decodedURL.indexOf("h2=");
-// const paths = decodedURL.split("h2=");
-if (index > -1) {
-    hashPart = decodedURL.substr(index + 3, decodedURL.length - index - 3);
-    // console.log("hashPart:", hashPart);
-
-    // hashPart = paths[1]; //.replace(/-/g, " ");
-}
+// if (index > -1) {
+//     hashPart = decodedURL.substr(index + 3, decodedURL.length - index - 3);
+//     // console.log("hashPart:", hashPart);
+// }
 // console.log("hashPart:", hashPart);
 
 let loadTime = 0;
@@ -33,22 +32,31 @@ chrome.runtime.onMessage.addListener((request) => {
         // const elements = document.getElementsByClassName('hp-toc-entry');
         const elements = document.querySelectorAll(".hp-toc-entry")
         if (elements.length > 0 && loadTime == 0) {
-            if (!hashPart) {
+            if (index === -1) {
                 elements[0].click();
             } else {
                 // jump to hash part 
                 for (const element of elements) {
-                    let heading = element.querySelector('span.notranslate');
+
+                    let heading = element.querySelector('a').href;
+                    if (heading === firstURL) {
+                        // console.log("bingo");
+                        element.click();
+                        break;
+                    }
+                    // < li 
+                    //  <span is equal to  <a-title
 
                     // console.log("heading:", heading.textContent);
                     // console.log("heading2:", heading.firstChild.nodeValue);
                     // console.log("heading3:", heading.innerHTML); 
-                    const newHeading = heading.textContent.replace(/ /g, "-");
-                    if (newHeading.indexOf(hashPart) > -1) {
-                        // console.log("bingo:", newHeading);
-                        element.click();
-                        break;
-                    }
+                    // let heading = element.querySelector('span.notranslate');
+                    // const newHeading = heading.textContent.replace(/ /g, "-");
+                    // if (newHeading.indexOf(hashPart) > -1) {
+                    //     console.log("a:", heading2)
+                    // console.log("bingo:", newHeading);
+
+                    // }
                 }
             }
         }
