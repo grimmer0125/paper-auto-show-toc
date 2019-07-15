@@ -13,7 +13,7 @@ var decodedURL = decodeURI(window.location.href);
 let hashPart = null;
 const paths = decodedURL.split("h2=");
 if (paths.length >= 2) {
-    hashPart = paths[1].replace(/-/g, " ");
+    hashPart = paths[1]; //.replace(/-/g, " ");
 }
 // console.log("hashPart:", hashPart);
 
@@ -38,7 +38,7 @@ chrome.runtime.onMessage.addListener((request) => {
                     // console.log("heading:", heading.textContent);
                     // console.log("heading2:", heading.firstChild.nodeValue);
                     // console.log("heading3:", heading.innerHTML); 
-                    const newHeading = heading.textContent.replace(/-/g, " ");
+                    const newHeading = heading.textContent.replace(/ /g, "-");
                     if (newHeading.indexOf(hashPart) > -1) {
                         // console.log("bingo")
                         element.click();
