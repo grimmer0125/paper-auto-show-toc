@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Paper Auto Show TOC",
   "description": "Paper Auto Show TOC",
-  "version": "1.0",
+  "version": "1.1",
 
   "icons": {
     "16": "icon16.png",
