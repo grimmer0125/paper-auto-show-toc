@@ -11,9 +11,14 @@ var decodedURL = decodeURI(window.location.href);
 // console.log("decodedURL:", decodedURL);
 
 let hashPart = null;
-const paths = decodedURL.split("h2=");
-if (paths.length >= 2) {
-    hashPart = paths[1]; //.replace(/-/g, " ");
+
+const index = decodedURL.indexOf("h2=");
+// const paths = decodedURL.split("h2=");
+if (index > -1) {
+    hashPart = decodedURL.substr(index + 3, decodedURL.length - index - 3);
+    // console.log("hashPart:", hashPart);
+
+    // hashPart = paths[1]; //.replace(/-/g, " ");
 }
 // console.log("hashPart:", hashPart);
 
@@ -40,7 +45,7 @@ chrome.runtime.onMessage.addListener((request) => {
                     // console.log("heading3:", heading.innerHTML); 
                     const newHeading = heading.textContent.replace(/ /g, "-");
                     if (newHeading.indexOf(hashPart) > -1) {
-                        // console.log("bingo")
+                        // console.log("bingo:", newHeading);
                         element.click();
                         break;
                     }
