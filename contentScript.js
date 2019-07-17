@@ -31,7 +31,7 @@ function hasHeading(url) {
 }
 
 chrome.runtime.onMessage.addListener((request) => {
-    console.log("current page url:", window.location.href);
+    // console.log("current page url:", window.location.href);
 
     if (request.message !== 'tab_update_completed') {
         return;
@@ -49,7 +49,7 @@ chrome.runtime.onMessage.addListener((request) => {
 
     // TODO:: prevent querySelectorAll in paper home/others
     const elements = document.querySelectorAll(".hp-toc-entry")
-    console.log("elements:", elements.length, index);
+    // console.log("elements:", elements.length, index);
 
     if (elements.length > 0) { // && loadTime == 0
         if (needLoadHeadingURL) {
@@ -58,7 +58,7 @@ chrome.runtime.onMessage.addListener((request) => {
 
                 let heading = element.querySelector('a').href;
                 if (heading === firstURL) {
-                    console.log("bingo");
+                    // console.log("bingo");
                     element.click();
                     break;
                 }
